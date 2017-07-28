@@ -5,7 +5,7 @@
 // @description Allows creation of multiple GAs at the same time
 // @version 0.1.3
 // @icon http://i.imgur.com/XYzKXzK.png
-// @downloadURL 
+// @downloadURL https://github.com/Laurvin/Steamgifts-GA-creator/raw/master/Steamgifts_GA_creator.user.js
 // @match http://www.steamgifts.com/giveaways/new
 // @match https://www.steamgifts.com/giveaways/new
 // @grant none
