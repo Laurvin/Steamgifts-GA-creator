@@ -78,7 +78,7 @@ if (!form.find('#games_textarea').length) {
     </div>\
     <div class="form__row__indent">\
       <div class="form__input-description">\
-        This section has been added by Steamgifts GA creator (<a style="color:#4B72D4" target="_blank" href="https://www.steamgifts.com/discussion/KnfXs/">info</a>).\
+        This section has been added by Steamgifts GA creator (<a style="color:#4B72D4" target="_blank" href="https://www.steamgifts.com/discussion/x1fu9/">info</a>).\
         <br/>\
         1 game per line. Example:\
         <br/>\
