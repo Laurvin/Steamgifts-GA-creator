@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name Steamgifts GA creator
+// @name SteamGifts Multiple Giveaways Creator
 // @namespace http://akhanubis.com/
 // @author Pablo Bianciotto (updated by Laurvin)
-// @description Allows creation of multiple GAs at the same time
-// @version 0.1.3
+// @description Allows creation of multiple GAs at the same time (See https://greasyfork.org/en/scripts/14840-steamgifts-ga-creator for the original.)
+// @version 0.2
 // @icon http://i.imgur.com/XYzKXzK.png
 // @downloadURL https://github.com/Laurvin/Steamgifts-GA-creator/raw/master/Steamgifts_GA_creator.user.js
 // @match http://www.steamgifts.com/giveaways/new
@@ -58,8 +58,8 @@ if (!form.find('#games_textarea').length) {
   };
 
   $(document).on('ajaxSuccess.batch', function(e, xhr, settings) {
-    if (settings.data.match(/do\=autocomplete_giveaway_game/)) { // Changed 'autocomplete_game' to 'autocomplete_giveaway_game'
-      var result = JSON.parse(xhr.responseText).html.match('<div data-autocomplete-id=\"(\\d+)\" data-autocomplete-name=\"' + game.name + '\"');
+    if (settings.data.match(/do\=autocomplete_giveaway_game/)) {
+      var result = JSON.parse(xhr.responseText).html.match('<div data-autocomplete-id=\"(\\d+)\" data-autocomplete-name=\"' + game.name.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&") + '\"'); // Added replace function to create a regex safe game name.
       if (result) {
         form.find('.js__autocomplete-id').val(result[1]);
         form[0].submit();
@@ -78,6 +78,8 @@ if (!form.find('#games_textarea').length) {
     </div>\
     <div class="form__row__indent">\
       <div class="form__input-description">\
+        This section has been added by Steamgifts GA creator (<a style="color:#4B72D4" target="_blank" href="https://www.steamgifts.com/discussion/KnfXs/">info</a>).\
+        <br/>\
         1 game per line. Example:\
         <br/>\
         QWERT-ASDFG-YUIOP Fallout 4\
@@ -101,7 +103,7 @@ if (!form.find('#games_textarea').length) {
       </div>\
       <div class="form__submit-button" id="load_games">\
         <i class="fa fa-arrow-circle-right"></i>\
-        Load games\
+        Load Games\
       </div>\
     </div>\
   </div>');
@@ -112,7 +114,8 @@ if (!form.find('#games_textarea').length) {
   form.find('#load_games').on('click', function(e) {
     e.preventDefault();
     not_found = [];
-    games = $.map(form.find('#games_textarea').val().split("\n"), function(line) {
+    games = $.map(form.find('#games_textarea').val().replace(/\t/g, ' ').replace(/[\s\r\n]+$/, '').split("\n"), function(line) {
+      // Added replacement of tabs with spaces and removing trailing newlines.
       var result, o;
       line = line.trim();
       if (reverse_regex()) {
