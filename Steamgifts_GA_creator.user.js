@@ -3,7 +3,7 @@
 // @namespace http://akhanubis.com/
 // @author Pablo Bianciotto (updated by Laurvin)
 // @description Allows creation of multiple GAs at the same time (See https://greasyfork.org/en/scripts/14840-steamgifts-ga-creator for the original.)
-// @version 0.21
+// @version 0.22
 // @icon http://i.imgur.com/XYzKXzK.png
 // @downloadURL https://github.com/Laurvin/Steamgifts-GA-creator/raw/master/Steamgifts_GA_creator.user.js
 // @match http://www.steamgifts.com/giveaways/new
@@ -61,7 +61,7 @@ if (!form.find('#games_textarea').length) {
     if (settings.data.match(/do\=autocomplete_giveaway_game/)) {
       var result = JSON.parse(xhr.responseText).html.match('<div data-autocomplete-id=\"(\\d+)\" data-autocomplete-name=\"' + game.name.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&").replace(/&(?!amp;)/g, '&amp;') + '\"'); // Added replace function to create a regex safe game name.
       if (result) {
-        form.find('.js__autocomplete-id').val(result[2]);
+        form.find('.js__autocomplete-id').val(result[1]);
         form[0].submit();
         next();
       }
